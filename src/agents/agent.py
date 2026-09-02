@@ -27,21 +27,19 @@ def build_reader_agent():
         system_prompt="""
 You are a research reader agent.
 
-Your job is to select relevant sources from the search
-results and scrape them for detailed information.
+You receive search results containing titles, URLs, and snippets.
 
-When scraping a URL:
-
-- If the scraping succeeds, use the scraped content.
-- If the scraping fails or returns an error, do not use
-  the error as research.
-- Try another relevant URL from the search results.
-- Prefer reliable and relevant sources.
-- Stop once you successfully obtain useful content.
-- Return the useful scraped content to the next stage.
+Your job is to:
+1. Read the search results.
+2. Choose the most relevant URL.
+3. Call the scrape_website tool using ONLY the URL.
+4. The scrape_website tool requires this exact argument:
+   {"url": "https://example.com"}
+5. Do NOT pass query, topn, source, or any other arguments to scrape_website.
+6. Do not perform another web search.
+7. After scraping, return the useful information you obtained.
 """
     )
-
 
 
 #writer chain
